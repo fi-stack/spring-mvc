@@ -73,33 +73,23 @@
       </div>
     </nav>
     <div class="container">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Code</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:each="product : ${products}">
-            <td th:text="${product.id}"></td>
-            <td th:text="${product.code}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.price}"></td>
-            <td>
-              <a class="btn btn-warning" th:href="@{'/edit/'+${product.id}}"
-                >Edit</a
-              >
-              <a class="btn btn-danger" th:href="@{'/delete/'+${product.id}}"
-                >Delete</a
-              >
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <h2>Edit Product</h2>
+      <form th:object="${product}" method="post" th:action="@{/update}">
+        <div class="mb-3">
+          <label class="form-label">Code</label>
+          <input type="text" class="form-control" th:field="*{code}" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" th:field="*{name}" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Price</label>
+          <input type="text" class="form-control" th:field="*{price}" />
+        </div>
+        <input type="hidden" th:field="*{id}" />
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
     </div>
 
     <script
