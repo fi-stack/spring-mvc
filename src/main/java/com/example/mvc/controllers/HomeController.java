@@ -1,5 +1,6 @@
 package com.example.mvc.controllers;
 
+import com.example.mvc.dto.SearchFormData;
 import com.example.mvc.entity.Product;
 import com.example.mvc.service.ProductService;
 
@@ -19,8 +20,9 @@ public class HomeController {
 
     @GetMapping
     public String welcome(Model model) {
-        String title = "Hello world!";
-        model.addAttribute("title", title);
+        String messages = "Hello world!";
+        model.addAttribute("msg", messages);
+        model.addAttribute("searchForm", new SearchFormData());
         model.addAttribute("products", productService.findAll());
         return "index";
     }
@@ -53,6 +55,15 @@ public class HomeController {
     public String update(Product product, Model model) {
         productService.updateProduct(product);
         return "redirect:/";
+    }
+
+    @PostMapping("/search")
+    public String search(SearchFormData searchFormData, Model model) {
+        String messages = "Hello world!";
+        model.addAttribute("msg", messages);
+        model.addAttribute("searchForm", searchFormData);
+        model.addAttribute("products", productService.findByName(searchFormData.getKeyword()));
+        return "index";
     }
 
 }
